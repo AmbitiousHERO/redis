@@ -1,0 +1,50 @@
+# mybatis配置
+mybatis: 
+  configuration:  
+    default-fetch-size: 100
+    default-statement-timeout: 3000
+    map-underscore-to-camel-case: true
+  mapperLocations: classpath:com/imooc/seckill/dao/*.xml
+  type-aliases-package: online.shixun.domain
+
+spring: 
+    # 数据源配置
+  datasource: 
+    url: jdbc:mysql://localhost:3306/seckill?useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true&useSSL=false&serverTimezone=Asia/Shanghai
+    username: root
+    password: z123456
+  # Thymeleaf配置
+  thymeleaf: 
+    cache: false
+    servlet:
+      content-type: text/html
+    encoding: UTF-8
+  # Redis配置
+  redis: 
+    host: 127.0.0.1
+    port: 6379
+    password: 
+    lettuce:
+      pool: 
+                 # 最大活跃链接数 默认8
+        max-active: 8
+                 # 最大空闲连接数 默认8
+        max-idle: 8
+                 # 最小空闲连接数 默认0
+        min-idle: 0
+        
+logging:
+  level:
+    online.shixun.dao: debug
+
+application:
+  name: redis
+rabbitmq:
+  host: localhost
+  port: 5672
+  username: guest
+  password: guest
+  virtual-host: /
+  publisher-confirms: true
+  publisher-returns: true
+  template.mandatory: true

@@ -1,0 +1,55 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>商品列表</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <!-- jQuery -->
+    <script type="text/javascript" th:src="@{/js/jquery.min.js}"></script>
+    <!-- bootstrap -->
+    <link rel="stylesheet" type="text/css" th:href="@{/bootstrap/css/bootstrap.min.css}" />
+    <script type="text/javascript" th:src="@{/bootstrap/js/bootstrap.min.js}"></script>
+    <!-- jQuery-validate -->
+    <script type="text/javascript" th:src="@{/jquery-validation/jquery.validate.min.js}"></script>
+    <script type="text/javascript" th:src="@{/jquery-validation/localization/messages_zh.min.js}"></script>
+</head>
+<body>
+
+<div class="panel panel-default">
+    <div class="panel-heading">我的订单列表
+        <span id="seckill">返回秒杀列表</span>
+    </div>
+    <table class="table" id="goodslist">
+        <tr>
+            <td>订单id</td>
+            <td>商品名称</td>
+            <td>商品图片</td>
+            <td>秒杀数量</td>
+            <td>秒杀价</td>
+            <td>订单状态</td>
+            <td>付款时间</td>
+        </tr>
+        <tr th:each="order : ${orderList}">
+            <td th:text="${order.id}"></td>
+            <td th:text="${order.goodsName}"></td>
+            <td th:each="goods,goodsStat:${goodsList}" th:if="${goods.id}==${order.getGoodsId()}">
+                    <img th:src="@{${goods.goodsImg}}" width="100" height="100" />
+            </td>
+            <td th:text="${order.goodsCount}"></td>
+            <td th:text="${order.goodsPrice}"></td>
+            <td th:if="${order.status}==0">未支付</td>
+            <td th:if="${order.status}==1">未发货</td>
+            <td th:if="${order.status}==2">已签收</td>
+            <td th:text="${order.payDate}"></td>
+            <!--<td><a th:href="'/goods/to_detail/'+${goods.id}">详情</a></td>-->
+        </tr>
+    </table>
+</div>
+<script th:inline="javascript">
+    $("#seckill").click(function () {
+        $.get("",function () {
+            window.location.href = "/goods/to_list";
+        })
+    })
+</script>
+</body>
+</html>
